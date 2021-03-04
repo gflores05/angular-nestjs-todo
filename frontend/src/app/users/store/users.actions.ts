@@ -19,3 +19,8 @@ export const deleteUser = createAction(
   `${MODULE} Delete User`,
   props<{ id: number }>()
 );
+
+export const saveUser = createAction(
+  `${MODULE} Save User`,
+  props<{ user: User }>()
+);

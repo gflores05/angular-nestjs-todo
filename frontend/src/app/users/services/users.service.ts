@@ -23,6 +23,15 @@ export class UsersService {
       .pipe(map((response) => response));
   }
 
+  save(user: User) {
+    return this.http
+      .post(
+        `${environment.apiUrl}/users`,
+        user
+      )
+      .pipe(map((response) => response));
+  }
+
   constructor(
     private http: HttpClient
   ) {}

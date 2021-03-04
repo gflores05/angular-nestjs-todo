@@ -3,12 +3,14 @@ import { User} from '../types';
 
 export interface UsersState extends EntityState<User> {
   loading: boolean;
+  selectedUser: User;
 }
 
 export const usersAdapter = createEntityAdapter<User>();
 
 const initialState = {
-  loading: false
+  loading: false,
+  selectedUser: {} as User
 };
 
 export const userInitialState: UsersState = usersAdapter.getInitialState(

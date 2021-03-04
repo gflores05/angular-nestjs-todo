@@ -4,7 +4,11 @@ import { User } from '../../types';
 @Component({
   selector: 'app-users-table',
   template: `
-    <h2>Users</h2>
+    <h2>Users
+      <a routerLink="/users/new" mat-mini-fab color="primary" aria-label="Add new user">
+        <mat-icon>add</mat-icon>
+      </a>
+    </h2>
     <table mat-table [dataSource]="users" class="mat-elevation-z8">
       <ng-container matColumnDef="id">
         <th mat-header-cell *matHeaderCellDef> Id </th>
