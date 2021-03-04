@@ -1,0 +1,21 @@
+CREATE DATABASE test;
+
+CREATE TABLE users (
+  id SERIAL PRIMARY KEY,
+  name VARCHAR(120) NOT NULL,
+  username VARCHAR(120) UNIQUE NOT NULL,
+  email VARCHAR(120) NOT NULL,
+  address JSON NOT NULL,
+  phone VARCHAR(120) NOT NULL,
+  website VARCHAR(120) NOT NULL,
+  company JSON NOT NULL
+);
+
+CREATE TABLE todos(
+  userId INT NOT NULL,
+  id SERIAL PRIMARY KEY,
+  title VARCHAR(120) NOT NULL,
+  completed BOOLEAN NOT NULL,
+  FOREIGN KEY (userId)
+    REFERENCES users (id)
+);
