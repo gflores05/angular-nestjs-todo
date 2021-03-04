@@ -24,7 +24,7 @@ export class UsersService {
   }
 
   save(user: User) {
-    if (user.id) {
+    if (user.id && user.id !== 0) {
       return this.http
       .put(
         `${environment.apiUrl}/users`,

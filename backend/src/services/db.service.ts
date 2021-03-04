@@ -17,6 +17,7 @@ export class DbService {
   }
   
   async query<T>(query, params = null): Promise<T[]> {
+
     const client = this.getClient();
 
     client.connect();

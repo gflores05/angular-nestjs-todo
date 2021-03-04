@@ -24,7 +24,7 @@ export class TodosService {
   }
 
   save(todo: Todo) {
-    if (todo.id) {
+    if (todo.id && todo.id !== 0) {
       return this.http
       .put(
         `${environment.apiUrl}/todos`,

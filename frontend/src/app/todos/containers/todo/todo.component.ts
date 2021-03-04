@@ -25,7 +25,7 @@ export class TodoComponent implements OnInit {
         const selectedId = params.get('id');
 
         if (selectedId) {
-          this.facade.loadTodo(selectedId);
+          selectedId === 'new' ? this.facade.loadTodo(0) :this.facade.loadTodo(selectedId);
         }
       }
     );

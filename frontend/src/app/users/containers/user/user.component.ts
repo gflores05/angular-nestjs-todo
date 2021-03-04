@@ -25,7 +25,7 @@ export class UserComponent implements OnInit {
         const selectedId = params.get('id');
 
         if (selectedId) {
-          this.facade.loadUser(selectedId);
+          selectedId === 'new' ? this.facade.loadUser(0) :this.facade.loadUser(selectedId);
         }
       }
     );

@@ -1,13 +1,14 @@
 import { DbService } from "./db.service";
 import { Injectable } from '@nestjs/common';
 import { Model } from "../models/model";
+import { FireService } from "./firedb.service";
 
 @Injectable()
 export class ModelService<T extends Model>{
   protected tableName: string;
   protected fields: string[];
 
-  constructor(private dbService: DbService) {}
+  constructor(private dbService: DbService, private fireService: FireService) {}
 
   async findAll(): Promise<T[]> {
     const select = this.fields.join(',');
@@ -36,6 +37,10 @@ export class ModelService<T extends Model>{
     const statement = `INSERT INTO ${this.tableName}(${insertFields}) VALUES (${insertValues})`;
 
     await this.dbService.exec(statement, values);
+
+    const id = await this.dbService.query<{id: number}>(`SELECT max(id) as id from ${this.tableName}`);
+
+    await this.fireService.save(this.tableName, id[0]["id"].toString(), obj);
   }
 
   async update(obj: T) {
@@ -50,6 +55,8 @@ export class ModelService<T extends Model>{
     const statement = `UPDATE ${this.tableName} SET ${updateFields} WHERE id = $${values.length}`;
 
     await this.dbService.exec(statement, values);
+
+    await this.fireService.save(this.tableName, obj.id.toString(), obj);
   }
 
   async delete(id: number) {
