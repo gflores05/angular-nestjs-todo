@@ -12,8 +12,26 @@ export class UsersEffects {
     this.actions$.pipe(
       ofType(actions.loadUsers),
       switchMap(_ =>
-        this.usersService.getUsers().pipe(
+        this.usersService.list().pipe(
           map(users => actions.loadUsersSuccess({ users })),
+          catchError((error: Error) =>
+            of(
+              actions.loadUsersFail({
+                error: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
+  loadUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.loadUser),
+      switchMap(action =>
+        this.usersService.get(action.id).pipe(
+          map(user => actions.loadUserSuccess({ user })),
           catchError((error: Error) =>
             of(
               actions.loadUsersFail({

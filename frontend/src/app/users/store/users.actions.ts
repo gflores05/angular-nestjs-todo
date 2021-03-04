@@ -15,6 +15,21 @@ export const loadUsersFail = createAction(
   props<{ error: string }>()
 );
 
+export const loadUser = createAction(
+  `${MODULE} Load User`,
+  props<{ id: number }>()
+);
+
+export const loadUserSuccess = createAction(
+  `${MODULE} Load User Success`,
+  props<{ user: User }>()
+);
+
+export const loadUserFail = createAction(
+  `${MODULE} Load User Fail`,
+  props<{ error: string }>()
+);
+
 export const deleteUser = createAction(
   `${MODULE} Delete User`,
   props<{ id: number }>()

@@ -17,6 +17,10 @@ export class UsersFacade {
     this.store.dispatch(actions.loadUsers());
   }
 
+  loadUser(id) {
+    this.store.dispatch(actions.loadUser({id}));
+  }
+
   deleteUser(id: number) {
     this.store.dispatch(actions.deleteUser({id}));
   }

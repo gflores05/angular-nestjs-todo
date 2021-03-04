@@ -7,6 +7,10 @@ const routes: Routes = [{
   path: '',
   children: [
     {
+      path: ':id',
+      component: UserComponent
+    },
+    {
       path: 'new',
       component: UserComponent
     },

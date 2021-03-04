@@ -2,9 +2,7 @@ import * as entities from './users.entities';
 import { createSelector } from '@ngrx/store';
 
 // Users
-const selectUsersState = (state) => {
-  return state.users;
-};
+const selectUsersState = (state) => state.users;
 
 export const {
   selectAll: selectUsers
@@ -17,5 +15,7 @@ export const selectUsersLoading = createSelector(
 
 export const selectUser = createSelector(
   selectUsersState,
-  state => state.user
+  state => {
+    return state.selectedUser;
+  }
 );

@@ -20,14 +20,14 @@ export class UserComponent implements OnInit {
   constructor(public facade: UsersFacade, private route: ActivatedRoute) { }
 
   ngOnInit(): void {
-    this.route.paramMap.pipe(
-      map(params => {
+    this.route.paramMap.subscribe(
+      params => {
         const selectedId = params.get('id');
 
         if (selectedId) {
-
+          this.facade.loadUser(selectedId);
         }
-      })
+      }
     );
   }
 

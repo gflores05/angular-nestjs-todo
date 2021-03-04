@@ -1,4 +1,4 @@
-import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter, OnChanges, SimpleChanges } from '@angular/core';
 import { FormBuilder, FormGroup, Validators } from '@angular/forms';
 
 import { User } from '../../types';
@@ -194,7 +194,7 @@ import { User } from '../../types';
   `,
   styleUrls: ['./user-form.component.scss']
 })
-export class UserFormComponent implements OnInit {
+export class UserFormComponent implements OnInit, OnChanges {
 
   @Input() user: User;
 
@@ -220,9 +220,28 @@ export class UserFormComponent implements OnInit {
       bs: ['', Validators.required]
     });
   }
-
-  ngOnInit(): void {
+  ngOnChanges(changes) {
+    if (changes["user"].currentValue) {
+      this.form.patchValue({
+        name: this.user.name,
+        username: this.user.username,
+        email: this.user.email,
+        street: this.user.address?.street,
+        suite: this.user.address?.suite,
+        city: this.user.address?.city,
+        zipcode: this.user.address?.zipcode,
+        lat: this.user.address?.geo?.lat,
+        lng: this.user.address?.geo?.lng,
+        phone: this.user.phone,
+        website: this.user.website,
+        companyName: this.user.company?.name,
+        catchPhrase: this.user.company?.catchPhrase,
+        bs: this.user.company?.bs,
+      });
+    }
   }
+
+  ngOnInit(): void {}
 
   onSave() {
     const user: User = {

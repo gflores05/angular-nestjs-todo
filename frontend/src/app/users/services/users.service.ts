@@ -7,7 +7,7 @@ import { Observable } from 'rxjs';
 
 @Injectable()
 export class UsersService {
-  getUsers(): Observable<User[]> {
+  list(): Observable<User[]> {
     return this.http
       .get<User[]>(
         `${environment.apiUrl}/users`
@@ -24,12 +24,28 @@ export class UsersService {
   }
 
   save(user: User) {
+    if (user.id) {
+      return this.http
+      .put(
+        `${environment.apiUrl}/users`,
+        user
+      )
+      .pipe(map((response) => response));
+    }
     return this.http
       .post(
         `${environment.apiUrl}/users`,
         user
       )
       .pipe(map((response) => response));
+  }
+
+  get(id: number): Observable<User> {
+    return this.http
+      .get<User>(
+        `${environment.apiUrl}/users/${id}`
+      )
+      .pipe(map((results) => results));
   }
 
   constructor(

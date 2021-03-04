@@ -8,6 +8,9 @@ const _usersReducer = createReducer(
   on(actions.loadUsersSuccess, (state, { users }) =>
     entities.usersAdapter.setAll(users, { ...state, loading: false })
   ),
+  on(actions.loadUserSuccess, (state, { user }) =>
+    ({ ...state, selectedUser: user })
+  ),
   on(actions.loadUsersFail, (state, action) =>
     entities.usersAdapter.removeAll({
       ...state,

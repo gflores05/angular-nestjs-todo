@@ -38,9 +38,9 @@ import { User } from '../../types';
       <ng-container matColumnDef="actions">
         <th mat-header-cell *matHeaderCellDef> Actions </th>
         <td mat-cell *matCellDef="let element">
-        <button color="primary" mat-icon-button aria-label="Edit">
+        <a [routerLink]="'/users/'+element.id" color="primary" mat-icon-button aria-label="Edit">
           <mat-icon>edit</mat-icon>
-        </button>
+        </a>
         <button
           color="warn"
           mat-icon-button
