@@ -1,4 +1,4 @@
-import { Component, Input, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, EventEmitter } from '@angular/core';
 import { User } from '../../types';
 
 @Component({
@@ -31,6 +31,23 @@ import { User } from '../../types';
         <td mat-cell *matCellDef="let element"> {{element.website}} </td>
       </ng-container>
 
+      <ng-container matColumnDef="actions">
+        <th mat-header-cell *matHeaderCellDef> Actions </th>
+        <td mat-cell *matCellDef="let element">
+        <button color="primary" mat-icon-button aria-label="Edit">
+          <mat-icon>edit</mat-icon>
+        </button>
+        <button
+          color="warn"
+          mat-icon-button
+          aria-label="Delete"
+          (click)="delete.emit(element.id)"
+          >
+          <mat-icon>delete</mat-icon>
+        </button>
+        </td>
+      </ng-container>
+
       <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
       <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
     </table>
@@ -41,7 +58,9 @@ export class UsersTableComponent implements OnInit {
 
   @Input() users: User[];
 
-  displayedColumns = ["id", "name", "username", "phone", "website"];
+  @Output() delete = new EventEmitter<number>();
+
+  displayedColumns = ["id", "name", "username", "phone", "website", "actions"];
 
   constructor() { }
 

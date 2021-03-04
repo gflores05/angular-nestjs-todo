@@ -25,6 +25,24 @@ export class UsersEffects {
     )
   );
 
+  deleteUser$ = createEffect(() =>
+    this.actions$.pipe(
+      ofType(actions.deleteUser),
+      switchMap(action =>
+        this.usersService.delete(action.id).pipe(
+          map(_ => actions.loadUsers()),
+          catchError((error: Error) =>
+            of(
+              actions.loadUsersFail({
+                error: error.message
+              })
+            )
+          )
+        )
+      )
+    )
+  );
+
   constructor(
     private actions$: Actions,
     private usersService: UsersService

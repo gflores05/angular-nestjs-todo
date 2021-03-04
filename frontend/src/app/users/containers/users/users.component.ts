@@ -5,7 +5,10 @@ import { UsersFacade } from 'src/app/users/store/users.facade';
 @Component({
   selector: 'app-users',
   template: `
-    <app-users-table [users]="facade.users$ | async"></app-users-table>
+    <app-users-table
+      [users]="facade.users$ | async"
+      (delete)="onDeleteUser($event)"
+    ></app-users-table>
   `,
   styleUrls: ['./users.component.scss']
 })
@@ -15,6 +18,10 @@ export class UsersComponent implements OnInit {
 
   ngOnInit(): void {
     this.facade.loadUsers();
+  }
+
+  onDeleteUser(id) {
+    this.facade.deleteUser(id);
   }
 
 }

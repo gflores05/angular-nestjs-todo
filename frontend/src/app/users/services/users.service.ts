@@ -15,6 +15,14 @@ export class UsersService {
       .pipe(map((results) => results));
   }
 
+  delete(id: number) {
+    return this.http
+      .delete(
+        `${environment.apiUrl}/users/${id}`
+      )
+      .pipe(map((response) => response));
+  }
+
   constructor(
     private http: HttpClient
   ) {}

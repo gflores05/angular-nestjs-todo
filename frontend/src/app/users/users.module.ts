@@ -2,6 +2,8 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MatTableModule } from '@angular/material/table';
+import { MatButtonModule } from '@angular/material/button';
+import { MatIconModule } from '@angular/material/icon';
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
@@ -18,7 +20,9 @@ import * as fromStore from './store';
     StoreModule.forFeature('users', fromStore.usersReducer),
     EffectsModule.forFeature(fromStore.effects),
     UsersRoutingModule,
-    MatTableModule
+    MatTableModule,
+    MatButtonModule,
+    MatIconModule
   ],
   providers: [...services, ...fromStore.facades]
 })
